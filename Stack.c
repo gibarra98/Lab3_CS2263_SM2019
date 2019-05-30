@@ -1,7 +1,7 @@
 /********************
- * 
+ *
  * Sentence reversal program using Linked List based Stack
- * 
+ *
  ********************/
 #include <stdio.h>
 #include <stdlib.h>
@@ -67,7 +67,15 @@ int main(void)
  */
 Node_t *newNode(const char *value, Node_t *next)
 {
-    return NULL;
+  Node_t * newNode = malloc(sizeof(Node_t));
+	if(newNode == NULL){
+		return NULL;
+	}
+	else{
+		newNode -> value = strdup(value);;
+		newNode -> next = next;
+		return newNode;
+    }
 }
 
 /**
@@ -77,7 +85,11 @@ Node_t *newNode(const char *value, Node_t *next)
  */
 Node_t *deleteNode(Node_t *current, char **value)
 {
-    return NULL;
+    Node_t *next = current -> next;
+    *value = current -> value;
+    free(current);
+    return next;
+
 }
 
 /**
@@ -88,7 +100,10 @@ Node_t *deleteNode(Node_t *current, char **value)
  */
 bool pop(Node_t **Stack, char **value)
 {
-    return false;
+    Node_t *current = *Stack;
+    current = deleteNode(current, value);
+    *Stack = current;
+    return true;
 }
 
 /**
@@ -98,5 +113,7 @@ bool pop(Node_t **Stack, char **value)
  */
 bool push(Node_t **Stack, const char *value)
 {
-    return false;
+  Node_t *current = *Stack;
+	*Stack = newNode(value, current);
+  return true;
 }
